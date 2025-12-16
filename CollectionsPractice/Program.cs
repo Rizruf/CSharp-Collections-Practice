@@ -5,11 +5,9 @@
         static void Main(string[] args)
         {
             ListTasks myWorker = new ListTasks();
+            //myWorker.ListMerge();
 
-            myWorker.ListMerge();
-
-            Console.WriteLine("\nНажми Enter, чтобы закрыть...");
-            Console.ReadLine();
+            myWorker.ToDoList();
         }
     }
 }
