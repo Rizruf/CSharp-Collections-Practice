@@ -11,7 +11,9 @@
 
             //myWorker.PhoneBook();
 
-            myWorker.FrequencyAnalysis();
+            //myWorker.FrequencyAnalysis();
+
+            myWorker.LifeTimeCalculator();
         }
     }
 }

@@ -322,8 +322,8 @@ namespace CollectionsPractice
 
             string[] words = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-            Dictionary <string, int> frequencies = new Dictionary<string, int>();
-            
+            Dictionary<string, int> frequencies = new Dictionary<string, int>();
+
             int counts = 1;
 
             foreach (string word in words)
@@ -341,8 +341,33 @@ namespace CollectionsPractice
             Console.WriteLine("Ваш результат:");
             foreach (var item in frequencies)
             {
-                Console.WriteLine( $"{item.Key} {item.Value}");
+                Console.WriteLine($"{item.Key} {item.Value}");
             }
+        }
+
+        public void LifeTimeCalculator()
+        {
+            Console.Write("Введите дату рождения (гггг-мм-дд): ");
+            string inputbirthDate = Console.ReadLine();
+
+
+            if (DateTime.TryParse(inputbirthDate, out DateTime birthDate))
+            {
+                DateTime now = DateTime.Now;
+                TimeSpan lived = now - birthDate;
+                Console.WriteLine($"Ты прожил: {lived.TotalDays:F0} дней всего");
+                Console.WriteLine($"Ты родился в: {birthDate.DayOfWeek}");
+
+                DateTime nextBirthday = new DateTime(now.Year, birthDate.Month, birthDate.Day);
+
+                if (nextBirthday < now)
+                {
+                    nextBirthday = nextBirthday.AddYears(1);
+                }
+                TimeSpan daysLeft = nextBirthday - now;
+                Console.WriteLine($"До следующего ДР осталось: {daysLeft.TotalDays:F0} дней");
+            }
+            else Console.WriteLine("Не корректный ввод!");
         }
     }
 }
