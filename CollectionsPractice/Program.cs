@@ -7,7 +7,9 @@
             ListTasks myWorker = new ListTasks();
             //myWorker.ListMerge();
 
-            myWorker.ToDoList();
+            //myWorker.ToDoList();
+
+            myWorker.PhoneBook();
         }
     }
 }

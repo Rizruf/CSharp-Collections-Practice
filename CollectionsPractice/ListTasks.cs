@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CollectionsPractice
 {
@@ -151,5 +153,154 @@ namespace CollectionsPractice
             }
         }
 
+        public void PhoneBook()
+        {
+            Dictionary<string, string> phoneBook = new Dictionary<string, string>();
+
+            phoneBook.Add("Мама", "88009994545");
+            phoneBook.Add("Папа", "88009994546");
+
+            bool isNull;
+
+            while (true)
+            {
+                Console.WriteLine("\nВыберите какое действие хотели бы совершить с телефонной книгой:\n");
+
+                Console.WriteLine("1. Добавить контакт");
+                Console.WriteLine("2. Найти номер по имени");
+                Console.WriteLine("3. Удалить контакт контакт");
+                Console.WriteLine("4. Посмотреть список контактов");
+                Console.WriteLine("5. Выход\n");
+
+                string variable = Console.ReadLine();
+
+                if (int.TryParse(variable, out int correctVariable))
+                {
+                    switch (correctVariable)
+                    {
+                        case 1:
+
+                            while (true)
+                            {
+                                Console.WriteLine("\nДобавление контакта:\n");
+
+                                Console.Write("Введите имя: ");
+                                string name = Console.ReadLine();
+
+                                isNull = NullValidation(name);
+                                if (!isNull) continue;
+
+                                Console.Write("\nВведите телефон: ");
+                                string phoneNum = Console.ReadLine();
+
+                                isNull = NullValidation(phoneNum);
+                                if (!isNull) continue;
+
+                                ValidationPhone(in phoneNum, out bool numberIsCorrect);
+
+                                if (phoneBook.ContainsKey(name))
+                                {
+                                    Console.WriteLine("Ошибка: Контакт с таким именем уже существует!");
+                                    Console.WriteLine("Повторите!");
+                                    continue;
+                                }
+                                if (numberIsCorrect)
+                                {
+                                    phoneBook.Add(name, phoneNum);
+                                    Console.WriteLine("Контакт добавлен!");
+                                    break;
+                                }
+                            }
+                            continue;
+
+                        case 2:
+                            Console.WriteLine("\nПоиск номера по имени:\n");
+                            Console.WriteLine("\nВведите имя: ");
+                            string namePerson = Console.ReadLine();
+
+                            isNull = NullValidation(namePerson);
+                            if (!isNull) continue;
+
+                            if (phoneBook.ContainsKey(namePerson))
+                            {
+                                string number = phoneBook[namePerson];
+
+                                Console.WriteLine($"Нашел номер этого человека - Номер: {number}");
+                            }
+                            else Console.WriteLine("Такого имени в контактах нет.");
+
+                            continue;
+
+                        case 3:
+                            Console.WriteLine("\nНапишите имя контакта, которого хотите удалить\n");
+                            string nameToDel = Console.ReadLine();
+
+                            isNull = NullValidation(nameToDel);
+                            if (!isNull) continue;
+
+                            if (phoneBook.ContainsKey(nameToDel))
+                            {
+                                Console.WriteLine("\nКонтакт удален!\n");
+                                phoneBook.Remove(nameToDel);
+                            }
+                            else Console.WriteLine("\nТакого имени в контактах нет.\n");
+
+                            continue;
+
+                        case 4:
+
+                            foreach (var item in phoneBook)
+                            {
+                                Console.WriteLine($"Имя: {item.Key} | Тел: {item.Value}");
+                            }
+                            continue;
+
+                        case 5:
+                            Console.WriteLine("Выходим");
+                            return;
+
+                        default:
+                            Console.WriteLine("Такого действия не существует! Повторите.");
+                            continue;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nНе корректный формат ввода. Повторите!");
+                    continue;
+                }
+            }
+        }
+
+        public static void ValidationPhone(in string number, out bool correctOrNot)
+        {
+            bool numberCorrect1 = true;
+
+            for (int i = 0; i < number.Length; i++)
+            {
+                if (!char.IsDigit(number[i]))
+                {
+                    Console.WriteLine("Не корректный ввод номера, должны быть лишь цифры! Повторите.");
+                    numberCorrect1 = false;
+                    break;
+                }
+            }
+            if (number.Length != 11)
+            {
+                Console.WriteLine("Номер должен содержать 11 цифр! Повторите.");
+                numberCorrect1 = false;
+            }
+            correctOrNot = numberCorrect1;
+        }
+
+        public static bool NullValidation(in string context)
+        {
+            if (string.IsNullOrEmpty(context))
+            {
+                Console.WriteLine("Вы ничего не ввели, пожалуйста повторите!");
+                return false;
+            }
+            return true;
+        }
     }
 }
