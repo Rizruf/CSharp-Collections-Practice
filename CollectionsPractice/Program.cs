@@ -9,7 +9,9 @@
 
             //myWorker.ToDoList();
 
-            myWorker.PhoneBook();
+            //myWorker.PhoneBook();
+
+            myWorker.FrequencyAnalysis();
         }
     }
 }

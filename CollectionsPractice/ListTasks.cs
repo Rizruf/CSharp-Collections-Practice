@@ -302,5 +302,47 @@ namespace CollectionsPractice
             }
             return true;
         }
+
+        public void FrequencyAnalysis()
+        {
+            Console.WriteLine("Введите предложением слова, а мы посчитаем повторы этих слов");
+            string text;
+
+            while (true)
+            {
+                text = Console.ReadLine();
+
+                bool isNull = NullValidation(text);
+
+                if (!isNull) continue;
+                else break;
+            }
+
+            text = text.ToLower();
+
+            string[] words = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Dictionary <string, int> frequencies = new Dictionary<string, int>();
+            
+            int counts = 1;
+
+            foreach (string word in words)
+            {
+                if (!frequencies.ContainsKey(word))
+                {
+                    frequencies.Add(word, counts);
+                }
+                else
+                {
+                    frequencies[word] += counts;
+                }
+            }
+
+            Console.WriteLine("Ваш результат:");
+            foreach (var item in frequencies)
+            {
+                Console.WriteLine( $"{item.Key} {item.Value}");
+            }
+        }
     }
 }
