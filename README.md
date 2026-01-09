@@ -26,7 +26,7 @@
 - **Tech:** `Dictionary<string, int>`, `Split`, `ToLower`.
 - **Logic:** Разбивает текст на слова, игнорирует регистр и считает частоту каждого слова.
 
-### 4. LifeTime Calculator ⏳
+### 4. LifeTime Calculator
 Калькулятор времени жизни и дат.
 - **Tech:** `DateTime`, `TimeSpan`.
 - **Features:**
